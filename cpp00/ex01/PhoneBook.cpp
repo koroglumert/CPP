@@ -2,106 +2,96 @@
 
 static void	ft_print_contact(Contact contact, int index)
 {
-	std::cout << std::setw(CHARACTERS_WIDE) << index << "|"; //burası da 10 karakterlik geişlikte mi olmalı
-	if (contact.get_name().length() > CHARACTERS_WIDE)
-		std::cout << std::setw(CHARACTERS_WIDE - 1) << contact.get_name() << ".|";
+	std::cout << std::setw(10) << index << "|";
+	if (contact.get_first_name().length() > 10)
+		std::cout << std::setw(9) << contact.get_first_name().substr(0, 9) << "." << "|";
 	else
-		std::cout << std::setw(CHARACTERS_WIDE) << contact.get_name() << "|";
-	if (contact.get_surname().length() > CHARACTERS_WIDE)
-		std::cout << std::setw(CHARACTERS_WIDE - 1) << contact.get_surname() << ".|";
+		std::cout << std::setw(10) << contact.get_first_name() << "|";
+	if (contact.get_last_name().length() > 10)
+		std::cout << std::setw(9) << contact.get_last_name().substr(0, 9) << "." << "|";
 	else
-		std::cout << std::setw(CHARACTERS_WIDE) << contact.get_surname() << "|";
-	if (contact.get_nickname().length() > CHARACTERS_WIDE)
-		std::cout << std::setw(CHARACTERS_WIDE - 1) << contact.get_nickname() << ".|";
+		std::cout << std::setw(10) << contact.get_last_name() << "|";
+	if (contact.get_nickname().length() > 10)
+		std::cout << std::setw(9) << contact.get_nickname().substr(0, 9) << "." << std::endl;
 	else
-		std::cout << std::setw(CHARACTERS_WIDE) << contact.get_nickname() << "|";
+		std::cout << std::setw(10) << contact.get_nickname() << std::endl;
 }
-
-static void	ft_print_contact_details(Contact contact, int index)
+//son satır neden kayıyor?
+static void	ft_print_contact_details(Contact contact)
 {
-	//std::cout << std::setw(CHARACTERS_WIDE) << index << "|"; //BAŞLIK İÇİN
-	ft_print_contact(contact, index);
-	if (contact.get_darkest_secret().length() > CHARACTERS_WIDE)
-		std::cout << std::setw(CHARACTERS_WIDE - 1) << contact.get_darkest_secret() << ".|";
-	else
-		std::cout << std::setw(CHARACTERS_WIDE) << contact.get_darkest_secret() << "|";
-	if (contact.get_phone_number().length() > CHARACTERS_WIDE)
-		std::cout << std::setw(CHARACTERS_WIDE - 1) << contact.get_phone_number() << ".|" << std::endl;
-	else
-		std::cout << std::setw(CHARACTERS_WIDE) << contact.get_phone_number() << "|" << std::endl;
+		std::cout << "First Name: " << contact.get_first_name() << std::endl;
+		std::cout << "Last Name: " << contact.get_last_name() << std::endl;
+		std::cout << "Nickname: " << contact.get_nickname() << std::endl;
+		std::cout << "Darkest Secret: " << contact.get_darkest_secret() << std::endl;
+		std::cout << "Phone Number: " << contact.get_phone_number() << std::endl;
 }
 
 void 	PhoneBook::search_person(void)
 {
-	int	index;
+	std::string input;
 
 	if (this->number_of_contacs == 0)
 	{
 		std::cout << "Sorry, No contact found." << std::endl;
 		return ;
 	}
-	//Başlık gerekirse bu bölümde oalcal
 	for(int i = 0; i < this->number_of_contacs; i++)
-	{
 		ft_print_contact(this->contact[i], i);
-		std::cout << std::endl;
-	}
-	std::cout << "Please, Enter a index number: "; //tek kişi olması durumunda talep edilmeli mi?
-	std::cin >> index;
-	if (index >= this->number_of_contacs || index < 0) //wrong index durumunda kod tekrar istemeli mi?
+	std::cout << "Please, Enter a index number: ";
+	getline(std::cin, input);
+	if (input == "")
 	{
-		std::cout << "Error! Wrong index" << std::endl;
+		std::cout << "Error! Empty index" << std::endl;
 		return ;
 	}
-	ft_print_contact_details(this->contact[index], index); //ilk başta bulnunan index bilgisi bulunmalı mı?, Bu bölüm bütün deatayları vermeli demi
+	else if (isdigit(input[0]) == false)
+	{
+		std::cout << "Error! Input is not number" << std::endl;
+		return ;
+	}
+	else if (std::stoi(input) < 0 || std::stoi(input) >= this->number_of_contacs)
+	{
+		std::cout << "Error! Input can't bigger than number of contacs or lower than 0" << std::endl;
+		return ;
+	}
+	else
+		ft_print_contact_details(this->contact[std::stoi(input)]);
 }
 
-void	PhoneBook::ft_add_new_contact()
+void	PhoneBook::add_new_contact()
 {
-	std::string name;
-	std::string surname;
+	number_of_contacs %= MAX_CONTACT_NUMBER;
+	std::string first_name;
+	std::string last_name;
 	std::string nickname;
 	std::string darkest_secret;
 	std::string phone_number;
 
-	std::cout << "Name: ";
-	std::cin >> name;
-	if (name.length() == 0)
+	std::cout << "First Name: ";
+	getline(std::cin ,first_name);
+	if (first_name.length() == 0)
 		return ;
-	std::cout << "Surname: ";
-	std::cin >> surname;
-	if (surname.length() == 0)
+	std::cout << "Last Name: ";
+	getline(std::cin, last_name);
+	if (last_name.length() == 0)
 		return ;
 	std::cout << "Nickname: ";
-	std::cin >> nickname;
+	getline(std::cin, nickname);
 	if (nickname.length() == 0)
 		return ;
 	std::cout << "Darkest Secret: ";
-	std::cin >> darkest_secret;
+	getline(std::cin, darkest_secret);
 	if (darkest_secret.length() == 0)
 		return ;
 	std::cout << "Phone Number: ";
-	std::cin >> phone_number;
+	getline(std::cin, phone_number);
 	if (phone_number.length() == 0)
 		return ;
-	this->contact[this->number_of_contacs - 1].set_name(name);
-	this->contact[this->number_of_contacs - 1].set_surname(surname);
-	this->contact[this->number_of_contacs - 1].set_nickname(nickname);
-	this->contact[this->number_of_contacs - 1].set_darkest_secret(darkest_secret);
-	this->contact[this->number_of_contacs - 1].set_phone_number(phone_number);
+	this->contact[this->number_of_contacs].set_first_name(first_name);
+	this->contact[this->number_of_contacs].set_last_name(last_name);
+	this->contact[this->number_of_contacs].set_nickname(nickname);
+	this->contact[this->number_of_contacs].set_darkest_secret(darkest_secret);
+	this->contact[this->number_of_contacs].set_phone_number(phone_number);
+	number_of_contacs++;
+	std::cout << "Contact Added" << std::endl; 
 }
-
-void	PhoneBook::add_new_person(void)
-{
-	if (number_of_contacs == MAX_CONTACT_NUMBER)
-	{
-		//ilk değeri nasıl silcem?
-		delete this->contact[0];
-		for(int i = 1; i <= MAX_CONTACT_NUMBER; i++)
-			this->contact[i - 1] = this->contact[i];
-	}
-	else
-		number_of_contacs++;
-	this->ft_add_new_contact();
-}
-

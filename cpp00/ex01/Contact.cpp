@@ -1,13 +1,13 @@
 #include "Contact.hpp"
 
-void	Contact::set_name(std::string name)
+void	Contact::set_first_name(std::string first_name)
 {
-	this->name = name;
+	this->first_name = first_name;
 }
 
-void	Contact::set_surname(std::string surname)
+void	Contact::set_last_name(std::string last_name)
 {
-	this->surname = surname;
+	this->last_name = last_name;
 }
 
 void	Contact::set_nickname(std::string nickname)
@@ -25,14 +25,14 @@ void	Contact::set_phone_number(std::string phone_number)
 	this->phone_number = phone_number;
 }
 
-std::string	Contact::get_name(void)
+std::string	Contact::get_first_name(void)
 {
-	return (this->name);
+	return (this->first_name);
 }
 
-std::string	Contact::get_surname(void)
+std::string	Contact::get_last_name(void)
 {
-	return (this->surname);
+	return (this->last_name);
 }
 
 std::string	Contact::get_nickname(void)

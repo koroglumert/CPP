@@ -5,12 +5,12 @@ int	main()
 	PhoneBook phonebook;
 	std::string command;
 
-	while(1)
+	while(1) //add boşlukl çalışmıyor nıormal mi?
 	{
 		std::cout << "Please, enter a command (ADD, SEARCH, EXIT): ";
 		getline(std::cin, command);
 		if (command == "ADD")
-			phonebook.add_new_person();
+			phonebook.add_new_contact();
 		else if (command == "SEARCH")
 			phonebook.search_person();
 		else if (command == "EXIT")
