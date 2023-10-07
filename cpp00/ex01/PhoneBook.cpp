@@ -30,13 +30,13 @@ void 	PhoneBook::search_person(void)
 {
 	std::string input;
 
-	if (this->number_of_contacs == 0)
+	if (number_of_contacs == 0)
 	{
 		std::cout << "Sorry, No contact found." << std::endl;
 		return ;
 	}
-	for(int i = 0; i < this->number_of_contacs; i++)
-		ft_print_contact(this->contact[i], i);
+	for(int i = 0; i < number_of_contacs; i++)
+		ft_print_contact(contact[i], i);
 	std::cout << "Please, Enter a index number: ";
 	getline(std::cin, input);
 	if (input == "")
@@ -49,13 +49,13 @@ void 	PhoneBook::search_person(void)
 		std::cout << "Error! Input is not number" << std::endl;
 		return ;
 	}
-	else if (std::stoi(input) < 0 || std::stoi(input) >= this->number_of_contacs)
+	else if (std::stoi(input) < 0 || std::stoi(input) >= number_of_contacs)
 	{
 		std::cout << "Error! Input can't bigger than number of contacs or lower than 0" << std::endl;
 		return ;
 	}
 	else
-		ft_print_contact_details(this->contact[std::stoi(input)]);
+		ft_print_contact_details(contact[std::stoi(input)]);
 }
 
 void	PhoneBook::add_new_contact()
@@ -87,11 +87,11 @@ void	PhoneBook::add_new_contact()
 	getline(std::cin, phone_number);
 	if (phone_number.length() == 0)
 		return ;
-	this->contact[this->number_of_contacs].set_first_name(first_name);
-	this->contact[this->number_of_contacs].set_last_name(last_name);
-	this->contact[this->number_of_contacs].set_nickname(nickname);
-	this->contact[this->number_of_contacs].set_darkest_secret(darkest_secret);
-	this->contact[this->number_of_contacs].set_phone_number(phone_number);
+	contact[this->number_of_contacs].set_first_name(first_name);
+	contact[this->number_of_contacs].set_last_name(last_name);
+	contact[this->number_of_contacs].set_nickname(nickname);
+	contact[this->number_of_contacs].set_darkest_secret(darkest_secret);
+	contact[this->number_of_contacs].set_phone_number(phone_number);
 	number_of_contacs++;
 	std::cout << "Contact Added" << std::endl; 
 }

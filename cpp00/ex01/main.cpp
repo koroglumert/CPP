@@ -5,7 +5,7 @@ int	main()
 	PhoneBook phonebook;
 	std::string command;
 
-	while(1) //add boşlukl çalışmıyor nıormal mi?
+	while(1)
 	{
 		std::cout << "Please, enter a command (ADD, SEARCH, EXIT): ";
 		getline(std::cin, command);
