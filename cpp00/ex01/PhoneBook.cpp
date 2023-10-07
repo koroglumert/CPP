@@ -4,19 +4,19 @@ static void	ft_print_contact(Contact contact, int index)
 {
 	std::cout << std::setw(10) << index << "|";
 	if (contact.get_first_name().length() > 10)
-		std::cout << std::setw(9) << contact.get_first_name().substr(0, 9) << "." << "|";
+		std::cout << contact.get_first_name().substr(0, 9) << "." << "|";
 	else
 		std::cout << std::setw(10) << contact.get_first_name() << "|";
 	if (contact.get_last_name().length() > 10)
-		std::cout << std::setw(9) << contact.get_last_name().substr(0, 9) << "." << "|";
+		std::cout << contact.get_last_name().substr(0, 9) << "." << "|";
 	else
 		std::cout << std::setw(10) << contact.get_last_name() << "|";
 	if (contact.get_nickname().length() > 10)
-		std::cout << std::setw(9) << contact.get_nickname().substr(0, 9) << "." << std::endl;
+		std::cout << contact.get_nickname().substr(0, 9) << "." << std::endl;
 	else
 		std::cout << std::setw(10) << contact.get_nickname() << std::endl;
 }
-//son satır neden kayıyor?
+
 static void	ft_print_contact_details(Contact contact)
 {
 		std::cout << "First Name: " << contact.get_first_name() << std::endl;
